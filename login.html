@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie – Pizzeria Neapol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.1">
+    <link rel="stylesheet" href="auth.css?v=1.1">
+    <link rel="stylesheet" href="mobile.css?v=1.1">
+    <link rel="stylesheet" href="footer.css?v=1.1">
+</head>
+<body>
+    <div class="side-decoration left-decoration"></div>
+    <div class="side-decoration right-decoration"></div>
+    
+    <div class="container">
+        <header>
+            <a href="index.html" class="logo-link">
+                <h1>Pizzeria Neapol</h1>
+            </a>
+            <div class="header-buttons">
+                <a href="register.html" class="auth-link">
+                    <i class="fas fa-user-plus"></i> Rejestracja
+                </a>
+                <div class="cart-icon-container">
+                    <div id="cart-icon" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count" class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <h2>Logowanie</h2>
+                    <p>Zaloguj się, aby kontynuować</p>
+                </div>
+
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder=" " required>
+                            <label for="email">Adres e-mail</label>
+                        </div>
+                        <div id="email-error" class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder=" " required>
+                            <label for="password">Hasło</label>
+                            <button type="button" class="toggle-password" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div id="password-error" class="error-message"></div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Zapamiętaj mnie</label>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#">Zapomniałeś hasła?</a>
+                    </div>
+
+                    <button type="submit" class="auth-button">
+                        <i class="fas fa-sign-in-alt"></i> Zaloguj się
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Nie masz konta? <a href="register.html">Zarejestruj się</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Добавляем футер в конец страницы -->
+    <div id="footer-container"></div>
+
+    <script src="auth.js"></script>
+    <script src="mobile.js"></script>
+    <script>
+        // Загружаем футер
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                });
+        });
+    </script>
+</body>
+</html>
