@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizzeria Neapol</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1.1">
-    <link rel="stylesheet" href="auth.css?v=1.1">
-    <link rel="stylesheet" href="footer.css?v=1.1">
+    <link rel="stylesheet" href="styles.css?v=1.7">
+    <link rel="stylesheet" href="auth.css?v=1.5">
+    <link rel="stylesheet" href="footer.css?v=1.5">
+    <link rel="stylesheet" href="mobile.css?v=1.7">
 
 </head>
+
 <body>
     <div class="side-decoration left-decoration"></div>
     <div class="side-decoration right-decoration"></div>
@@ -18,6 +21,12 @@
             <a href="index.html" class="logo-link">
                 <h1>Pizzeria Neapol</h1>
             </a>
+            <nav class="desktop-nav">
+                <a href="index.html" class="nav-link">
+                    <a href="#" class="nav-link" data-tab="pizza"><i class="fas fa-pizza-slice"></i>Pizza</a>
+                    <a href="#" class="nav-link" data-tab="drinks"><i class="fas fa-glass-cheers"></i>Napoje</a>
+                    <a href="#" class="nav-link" data-tab="appetizers"><i class="fas fa-cheese"></i>Przystawki</a>
+            </nav>
             <div class="header-buttons">
                 <div class="user-menu">
                     <button class="user-menu-button">
@@ -44,8 +53,9 @@
                     <div class="hero-content right-aligned">
                         <h2>Świeże, gorące i pyszne</h2>
                         <br>
-                        <p style="font-size: 1.2rem;">Zamów swoją ulubioną pizzę online z dostawą lub odbiorem osobistym</p>
-                      </div>
+                        <p style="font-size: 1.2rem;">Zamów swoją ulubioną pizzę online z dostawą lub odbiorem osobistym
+                        </p>
+                    </div>
                 </div>
             </section>
         </main>
@@ -59,12 +69,17 @@
         <div class="tab-content" id="drinks-menu"></div>
         <div class="tab-content" id="appetizers-menu"></div>
 
+        <div class="cart-overlay" id="cart-overlay"></div>
         <div id="cart-container" class="cart-container">
             <div class="cart-header">
                 <h2>Koszyk</h2>
                 <button id="close-cart" class="close-cart">&times;</button>
             </div>
             <div id="cart-items" class="cart-items"></div>
+            <div class="cart-sauces-upsell" id="cart-sauces-upsell">
+                <h4>Polecane sosy (+3.99 zł):</h4>
+                <div class="sauces-list" id="sauces-list"></div>
+            </div>
             <div class="cart-footer">
                 <div class="cart-total">
                     <span>Razem:</span>
@@ -74,13 +89,13 @@
             </div>
         </div>
     </div>
-<div id="footer-container"></div>
+    <div id="footer-container"></div>
 
-    <script src="script.js"></script>
-    <script src="mobile.js"></script>
+    <script src="script.js?v=1.6"></script>
+    <script src="mobile.js?v=1.6"></script>
     <script>
-     
-        document.addEventListener('DOMContentLoaded', function() {
+
+        document.addEventListener('DOMContentLoaded', function () {
             fetch('footer.html')
                 .then(response => response.text())
                 .then(data => {
@@ -90,4 +105,5 @@
     </script>
     <script src="auth.js"></script>
 </body>
+
 </html>

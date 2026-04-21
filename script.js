@@ -96,19 +96,7 @@ const pizzas = [
       { name: "Duża (42cm)", priceMultiplier: 1.3 },
     ],
   },
-  {
-    id: 8,
-    name: "Vege",
-    description: "Sos pomidorowy, mozzarella, oliwki, papryka, peczarki, pomidory",
-    price: 38.99,
-    image: "imag\photo_2026-04-20_13-59-50.png",
-    type: "pizza",
-    sizes: [
-      { name: "Mała (25cm)", priceMultiplier: 0.8 },
-      { name: "Średnia (32cm)", priceMultiplier: 1 },
-      { name: "Duża (42cm)", priceMultiplier: 1.3 },
-    ],
-  },
+
   {
     id: 9,
     name: "4 cheeze",
@@ -236,11 +224,21 @@ const appetizers = [
     type: "appetizer",
   },
 ]
+
+const sauces = [
+  { id: 201, name: "Słodki chili", price: 3.99, type: "sauce" },
+  { id: 202, name: "Ranch", price: 3.99, type: "sauce" },
+  { id: 203, name: "Pomidorowy", price: 3.99, type: "sauce" },
+  { id: 204, name: "Masełko czosnkowe", price: 3.99, type: "sauce" },
+  { id: 205, name: "BBQ", price: 3.99, type: "sauce" },
+  { id: 206, name: "Miodowo-musztardowy", price: 3.99, type: "sauce" },
+]
 const pizzaMenu = document.getElementById("pizza-menu")
 const drinksMenu = document.getElementById("drinks-menu")
 const appetizersMenu = document.getElementById("appetizers-menu")
 const cartIcon = document.getElementById("cart-icon")
 const cartContainer = document.getElementById("cart-container")
+const cartOverlay = document.getElementById("cart-overlay")
 const closeCart = document.getElementById("close-cart")
 const cartItems = document.getElementById("cart-items")
 const cartCount = document.getElementById("cart-count")
@@ -390,6 +388,7 @@ function addToCart(event) {
 
   updateCart()
   cartContainer.classList.add("active")
+  if (cartOverlay) cartOverlay.classList.add("active")
 }
 
 function updateCart() {
@@ -489,11 +488,20 @@ function switchTab() {
 
 cartIcon.addEventListener("click", () => {
   cartContainer.classList.add("active")
+  if (cartOverlay) cartOverlay.classList.add("active")
 })
 
 closeCart.addEventListener("click", () => {
   cartContainer.classList.remove("active")
+  if (cartOverlay) cartOverlay.classList.remove("active")
 })
+
+if (cartOverlay) {
+  cartOverlay.addEventListener("click", () => {
+    cartContainer.classList.remove("active")
+    cartOverlay.classList.remove("active")
+  })
+}
 
 checkoutBtn.addEventListener("click", () => {
   if (cart.length > 0) {
@@ -501,6 +509,7 @@ checkoutBtn.addEventListener("click", () => {
     cart = []
     updateCart()
     cartContainer.classList.remove("active")
+    if (cartOverlay) cartOverlay.classList.remove("active")
   } else {
     alert("Twój koszyk jest pusty. Proszę dodać produkty przed przejściem do kasy.")
   }
@@ -512,6 +521,21 @@ function init() {
   displayItems(drinks, drinksMenu, "drink")
   displayItems(appetizers, appetizersMenu, "appetizer")
 
+  // Generate sauces
+  const saucesList = document.getElementById("sauces-list")
+  if (saucesList) {
+    saucesList.innerHTML = ""
+    sauces.forEach(sauce => {
+      const sauceItem = document.createElement("div")
+      sauceItem.className = "sauce-upsell-item"
+      sauceItem.innerHTML = `
+        <span>${sauce.name}</span>
+        <button class="add-sauce-btn" data-id="${sauce.id}">Dodaj</button>
+      `
+      saucesList.appendChild(sauceItem)
+    })
+  }
+
   // Добавляем обработчики событий для вкладок
   tabs.forEach((tab) => {
     tab.addEventListener("click", switchTab)
@@ -521,10 +545,44 @@ function init() {
   document.addEventListener("click", (event) => {
     const target = event.target
 
+    // Обработка кликов по навигационным ссылкам (табам)
+    const navLink = target.closest(".nav-link[data-tab]")
+    if (navLink) {
+      event.preventDefault()
+      const tabId = navLink.getAttribute("data-tab")
+      const tabElement = document.querySelector(`.tab[data-tab="${tabId}"]`)
+      if (tabElement) {
+        tabElement.click()
+        tabElement.scrollIntoView({ behavior: "smooth", block: "center" })
+      }
+    }
+
     // Проверяем, является ли элемент или его родитель кнопкой добавления в корзину
     const addToCartButton = target.closest(".add-to-cart")
     if (addToCartButton) {
       addToCart({ target: addToCartButton })
+    }
+    // Обработка покупки предложенного соуса
+    const addSauceBtn = target.closest(".add-sauce-btn")
+    if (addSauceBtn) {
+      const sauceId = Number.parseInt(addSauceBtn.dataset.id)
+      const sauce = sauces.find(s => s.id === sauceId)
+      if (sauce) {
+        const existingItem = cart.find(c => c.id === sauceId && c.type === "sauce")
+        if (existingItem) {
+          existingItem.quantity++
+        } else {
+          cart.push({
+            id: sauce.id,
+            name: sauce.name,
+            price: sauce.price,
+            image: "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80",
+            type: "sauce",
+            quantity: 1,
+          })
+        }
+        updateCart()
+      }
     }
   })
 

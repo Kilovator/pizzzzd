@@ -1,5 +1,12 @@
 /* Мобильные стили для Pizzeria Neapol */
 
+/* Скрываем мобильные элементы на десктопе по умолчанию */
+.mobile-menu-toggle, 
+.mobile-menu, 
+.mobile-menu-overlay {
+    display: none !important;
+}
+
 /* Общие стили для мобильных устройств */
 @media (max-width: 768px) {
     /* Базовые настройки */
@@ -18,38 +25,65 @@
   
     /* Шапка сайта */
     header {
-      flex-direction: column;
+      position: sticky;
+      top: 0;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
       gap: 15px;
-      padding: 10px 0;
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
     }
   
     .header-buttons {
-      width: 100%;
-      justify-content: space-between;
+      width: auto;
+      display: flex;
+      gap: 15px;
+      align-items: center;
     }
   
     /* Мобильное меню */
     .mobile-menu-toggle {
-      display: block;
-      background: none;
-      border: none;
+      display: block !important;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff;
-      font-size: 24px;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 12px;
       cursor: pointer;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+    
+    .mobile-menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
     }
   
     .mobile-menu {
+      display: flex !important;
       position: fixed;
       top: 0;
       left: -100%;
-      width: 80%;
+      width: 85%;
+      max-width: 320px;
       height: 100vh;
-      background-color: #1a1a1a;
-      z-index: 1000;
-      transition: left 0.3s ease;
-      padding: 20px;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-      overflow-y: auto;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 2000;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 30px 20px;
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
     }
   
     .mobile-menu.active {
@@ -60,17 +94,38 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #333;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-menu-header h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ff6b6b;
+      margin: 0;
+      letter-spacing: 1px;
     }
   
     .close-mobile-menu {
-      background: none;
-      border: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #fff;
-      font-size: 24px;
+      font-size: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .close-mobile-menu:hover {
+      background: rgba(255, 107, 107, 0.2);
+      color: #ff6b6b;
+      transform: rotate(90deg);
     }
   
     .mobile-menu-items {
@@ -80,18 +135,32 @@
     }
   
     .mobile-menu-item {
-      color: #fff;
+      color: #e0e0e0;
       text-decoration: none;
-      font-size: 16px;
-      padding: 10px 0;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 15px 20px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.03);
+      margin-bottom: 5px;
+    }
+  
+    .mobile-menu-item:hover, .mobile-menu-item:active {
+      background: rgba(255, 107, 107, 0.1);
+      color: #ff6b6b;
+      transform: translateX(5px);
     }
   
     .mobile-menu-item i {
-      width: 20px;
+      width: 24px;
+      font-size: 20px;
       color: #ff6b6b;
+      display: flex;
+      justify-content: center;
     }
   
     .mobile-menu-overlay {
@@ -100,13 +169,17 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 999;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1999;
       display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
   
     .mobile-menu-overlay.active {
-      display: block;
+      display: block !important;
+      opacity: 1;
     }
   
     /* Вкладки меню */
