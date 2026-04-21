@@ -128,12 +128,20 @@ function adjustCartForMobile() {
   )
 
   document.addEventListener("click", (e) => {
+    // If the target is no longer in the document, it means it was removed
+    // (e.g., clicking a button that re-renders the cart), so we shouldn't close the cart.
+    if (!document.contains(e.target)) return;
+
     if (
       cartContainer.classList.contains("active") &&
       !cartContainer.contains(e.target) &&
-      !e.target.closest("#cart-icon")
+      !e.target.closest("#cart-icon") &&
+      !e.target.closest(".add-to-cart") &&
+      !e.target.closest(".add-sauce-btn")
     ) {
       cartContainer.classList.remove("active")
+      const overlay = document.getElementById("cart-overlay")
+      if (overlay) overlay.classList.remove("active")
     }
   })
 }

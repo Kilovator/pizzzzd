@@ -226,12 +226,12 @@ const appetizers = [
 ]
 
 const sauces = [
-  { id: 201, name: "Słodki chili", price: 3.99, type: "sauce" },
-  { id: 202, name: "Ranch", price: 3.99, type: "sauce" },
-  { id: 203, name: "Pomidorowy", price: 3.99, type: "sauce" },
-  { id: 204, name: "Masełko czosnkowe", price: 3.99, type: "sauce" },
-  { id: 205, name: "BBQ", price: 3.99, type: "sauce" },
-  { id: 206, name: "Miodowo-musztardowy", price: 3.99, type: "sauce" },
+  { id: 201, name: "Słodki chili", price: 3.99, type: "sauce", image: "./imag/sos_sweetchili_1000x1000.jpg" },
+  { id: 202, name: "Ranch", price: 3.99, type: "sauce", image: "./imag/sos_czosnkowyXXL_1000x1000.jpg" },
+  { id: 203, name: "Pomidorowy", price: 3.99, type: "sauce", image: "./imag/sos_pomidorowy1000x1000.jpg" },
+  { id: 204, name: "Masełko czosnkowe", price: 3.99, type: "sauce", image: "https://images.unsplash.com/photo-1589301773812-15f20a7b45ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" },
+  { id: 205, name: "BBQ", price: 3.99, type: "sauce", image: "https://images.unsplash.com/photo-1627308595171-d1b5d678385e?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" },
+  { id: 206, name: "Miodowo-musztardowy", price: 3.99, type: "sauce", image: "./imag/sos_miodowo-musztardowy_1000x1000.jpg" },
 ]
 const pizzaMenu = document.getElementById("pizza-menu")
 const drinksMenu = document.getElementById("drinks-menu")
@@ -266,25 +266,38 @@ function displayItems(items, container, itemType) {
 
     // Add size selector for pizzas
     if (itemType === "pizza" && item.sizes) {
+      const defaultSizeIndex = 1;
+      const defaultSizePrice = (item.price * item.sizes[defaultSizeIndex].priceMultiplier).toFixed(2);
+
       itemHTML += `
         <div class="size-selector">
           <div class="size-label">Rozmiar:</div>
-          <div class="custom-select">
-            <select id="size-${item.id}" class="size-select" data-id="${item.id}">
+          <div class="shadcn-select" data-id="${item.id}" data-value="${defaultSizeIndex}">
+            <button type="button" class="shadcn-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="shadcn-select-value">${item.sizes[defaultSizeIndex].name} - ${defaultSizePrice} zł</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shadcn-select-icon"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="shadcn-select-content" role="listbox" hidden>
       `
 
       item.sizes.forEach((size, index) => {
         const sizePrice = (item.price * size.priceMultiplier).toFixed(2)
-        itemHTML += `<option value="${index}" ${index === 1 ? "selected" : ""}>${size.name} - ${sizePrice} zł</option>`
+        itemHTML += `
+              <div class="shadcn-select-item" role="option" aria-selected="${index === defaultSizeIndex}" data-value="${index}">
+                <span class="shadcn-select-item-text">${size.name} - ${sizePrice} zł</span>
+                <span class="shadcn-select-item-indicator" ${index !== defaultSizeIndex ? 'style="display: none;"' : ''}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+              </div>
+        `
       })
 
       itemHTML += `
-            </select>
-            <div class="select-arrow"><i class="fas fa-chevron-down"></i></div>
+            </div>
           </div>
         </div>
         <div class="${itemType}-price-container">
-          <div class="${itemType}-price">${(item.price * item.sizes[1].priceMultiplier).toFixed(2)} zł</div>
+          <div class="${itemType}-price">${defaultSizePrice} zł</div>
         </div>
       `
     } else {
@@ -302,25 +315,81 @@ function displayItems(items, container, itemType) {
     itemElement.innerHTML = itemHTML
     container.appendChild(itemElement)
 
-    // Add event listeners for size selectors
+    // Add event listeners for shadcn size selectors
     if (itemType === "pizza") {
-      const sizeSelect = itemElement.querySelector(`.size-select`)
-      if (sizeSelect) {
-        sizeSelect.addEventListener("change", updatePizzaPrice)
+      const selectWrapper = itemElement.querySelector(`.shadcn-select`)
+      if (selectWrapper) {
+        initShadcnSelect(selectWrapper)
       }
     }
   })
 }
 
-function updatePizzaPrice(event) {
-  const selectElement = event.target
-  const itemId = Number.parseInt(selectElement.dataset.id)
-  const sizeIndex = Number.parseInt(selectElement.value)
+function initShadcnSelect(wrapper) {
+  const trigger = wrapper.querySelector('.shadcn-select-trigger');
+  const content = wrapper.querySelector('.shadcn-select-content');
+  const valueDisplay = wrapper.querySelector('.shadcn-select-value');
+  const items = wrapper.querySelectorAll('.shadcn-select-item');
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+    // Close all other open selects
+    document.querySelectorAll('.shadcn-select-trigger[aria-expanded="true"]').forEach(t => {
+      if (t !== trigger) {
+        t.setAttribute('aria-expanded', 'false');
+        t.nextElementSibling.hidden = true;
+      }
+    });
+
+    trigger.setAttribute('aria-expanded', !isExpanded);
+    content.hidden = isExpanded;
+  });
+
+  items.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const value = item.dataset.value;
+      const text = item.querySelector('.shadcn-select-item-text').textContent;
+
+      wrapper.dataset.value = value;
+      valueDisplay.textContent = text;
+
+      // Update selected states
+      items.forEach(i => {
+        i.setAttribute('aria-selected', 'false');
+        i.querySelector('.shadcn-select-item-indicator').style.display = 'none';
+      });
+      item.setAttribute('aria-selected', 'true');
+      item.querySelector('.shadcn-select-item-indicator').style.display = 'block';
+
+      // Close dropdown
+      trigger.setAttribute('aria-expanded', 'false');
+      content.hidden = true;
+
+      // Update pizza price
+      updatePizzaPrice(wrapper, value);
+    });
+  });
+}
+
+// Global click to close selects
+document.addEventListener('click', () => {
+  document.querySelectorAll('.shadcn-select-trigger[aria-expanded="true"]').forEach(t => {
+    t.setAttribute('aria-expanded', 'false');
+    t.nextElementSibling.hidden = true;
+  });
+});
+
+function updatePizzaPrice(wrapper, sizeIndexStr) {
+  const itemId = Number.parseInt(wrapper.dataset.id)
+  const sizeIndex = Number.parseInt(sizeIndexStr)
   const pizza = pizzas.find((p) => p.id === itemId)
 
   if (pizza && pizza.sizes && pizza.sizes[sizeIndex]) {
     const newPrice = (pizza.price * pizza.sizes[sizeIndex].priceMultiplier).toFixed(2)
-    const priceElement = selectElement.closest(".pizza-item").querySelector(".pizza-price")
+    const priceElement = wrapper.closest(".pizza-item").querySelector(".pizza-price")
     if (priceElement) {
       // Add animation class
       priceElement.classList.add("price-update")
@@ -357,9 +426,9 @@ function addToCart(event) {
   let sizeName = ""
 
   if (itemType === "pizza" && item.sizes) {
-    const sizeSelect = event.target.closest(".pizza-item").querySelector(".size-select")
+    const sizeSelect = event.target.closest(".pizza-item").querySelector(".shadcn-select")
     if (sizeSelect) {
-      const sizeIndex = Number.parseInt(sizeSelect.value)
+      const sizeIndex = Number.parseInt(sizeSelect.dataset.value)
       selectedSize = sizeIndex
       finalPrice = item.price * item.sizes[sizeIndex].priceMultiplier
       sizeName = item.sizes[sizeIndex].name
@@ -529,6 +598,7 @@ function init() {
       const sauceItem = document.createElement("div")
       sauceItem.className = "sauce-upsell-item"
       sauceItem.innerHTML = `
+        <img src="${sauce.image}" alt="${sauce.name}" class="sauce-upsell-img">
         <span>${sauce.name}</span>
         <button class="add-sauce-btn" data-id="${sauce.id}">Dodaj</button>
       `
@@ -576,7 +646,7 @@ function init() {
             id: sauce.id,
             name: sauce.name,
             price: sauce.price,
-            image: "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80",
+            image: sauce.image,
             type: "sauce",
             quantity: 1,
           })

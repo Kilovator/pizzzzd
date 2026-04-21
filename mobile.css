@@ -236,7 +236,6 @@
     /* Корзина */
     .cart-container {
       width: 100%;
-      right: -100%;
     }
   
     .cart-item {
