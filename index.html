@@ -170,10 +170,8 @@
         </div>
     </div>
 
-    <script src="script.js?v=1.7"></script>
-    <script src="mobile.js?v=1.6"></script>
+    <script type="module" src="/src/main.js"></script>
     <script>
-
         document.addEventListener('DOMContentLoaded', function () {
             fetch('footer.html')
                 .then(response => response.text())
@@ -182,8 +180,6 @@
                 });
         });
     </script>
-
-    <script src="auth.js"></script>
 </body>
 
 </html>
