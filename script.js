@@ -586,8 +586,8 @@ checkoutBtn.addEventListener("click", () => {
   }
 })
 
-// Исправляем функцию инициализации
 function init() {
+  initSlider()
   displayItems(pizzas, pizzaMenu, "pizza")
   displayItems(drinks, drinksMenu, "drink")
   displayItems(appetizers, appetizersMenu, "appetizer")
@@ -659,6 +659,75 @@ function init() {
   })
 
   updateCart()
+}
+
+/* ================================================
+   HERO SLIDER
+   ================================================ */
+
+function initSlider() {
+  const track   = document.getElementById('hero-track')
+  const slider  = document.getElementById('hero-slider')
+  const prevBtn = document.getElementById('hero-prev')
+  const nextBtn = document.getElementById('hero-next')
+  const bar     = document.getElementById('hero-progress-bar')
+  const slides  = document.querySelectorAll('.hero-slide')
+  const dots    = document.querySelectorAll('.hero-dot')
+  if (!track || !slides.length) return
+
+  const DURATION = 15200
+  let current = 0
+  let autoTimer = null
+  let paused = false
+
+  function goTo(n) {
+    slides[current].classList.remove('is-active')
+    dots[current].classList.remove('active')
+    current = (n + slides.length) % slides.length
+    track.style.transform = `translateX(-${current * 100}%)`
+    slides[current].classList.add('is-active')
+    dots[current].classList.add('active')
+    resetProgress()
+  }
+
+  function resetProgress() {
+    bar.style.transition = 'none'
+    bar.style.width = '0%'
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      bar.style.transition = `width ${DURATION}ms linear`
+      bar.style.width = '100%'
+    }))
+  }
+
+  function startAuto() {
+    clearInterval(autoTimer)
+    autoTimer = setInterval(() => { if (!paused) goTo(current + 1) }, DURATION)
+  }
+
+  // Init first slide
+  slides[0].classList.add('is-active')
+  dots[0].classList.add('active')
+  resetProgress()
+  startAuto()
+
+  prevBtn.addEventListener('click', () => { goTo(current - 1); startAuto() })
+  nextBtn.addEventListener('click', () => { goTo(current + 1); startAuto() })
+
+  dots.forEach(dot => dot.addEventListener('click', () => {
+    goTo(Number(dot.dataset.index)); startAuto()
+  }))
+
+  // Pause on hover
+  slider.addEventListener('mouseenter', () => { paused = true })
+  slider.addEventListener('mouseleave', () => { paused = false })
+
+  // CTA buttons scroll to tabs
+  document.querySelectorAll('.hero-cta[data-tab-link]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabEl = document.querySelector(`.tab[data-tab="${btn.dataset.tabLink}"]`)
+      if (tabEl) { tabEl.click(); tabEl.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
+    })
+  })
 }
 
 /* ================================================
