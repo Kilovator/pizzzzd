@@ -4,11 +4,13 @@
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
+
 body {
   background-color: #000 !important;
   color: #fff !important;
   min-height: 100vh;
 }
+
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("imag/neapol.png");
   background-size: cover;
@@ -18,6 +20,7 @@ body {
   padding: 120px 0px;
   height: 400px;
 }
+
 .hero-content {
   margin-top: -50px;
   margin-right: 10px;
@@ -31,6 +34,7 @@ body {
   margin: 0 center;
   padding: 0 20px;
 }
+
 .pizza-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -163,6 +167,7 @@ h1 {
   display: none;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  margin-bottom: 200px;
 }
 
 .tab-content.active {
@@ -238,9 +243,11 @@ p {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
   }
@@ -605,8 +612,15 @@ p {
 }
 
 @keyframes shadcn-select-in {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .shadcn-select-item {

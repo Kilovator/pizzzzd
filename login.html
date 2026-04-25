@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,11 @@
     <link rel="stylesheet" href="mobile.css?v=1.1">
     <link rel="stylesheet" href="footer.css?v=1.1">
 </head>
+
 <body>
     <div class="side-decoration left-decoration"></div>
     <div class="side-decoration right-decoration"></div>
-    
+
     <div class="container">
         <header>
             <a href="index.html" class="logo-link">
@@ -92,7 +94,7 @@
     <script src="mobile.js"></script>
     <script>
         // Загружаем футер
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             fetch('footer.html')
                 .then(response => response.text())
                 .then(data => {
@@ -101,4 +103,5 @@
         });
     </script>
 </body>
+
 </html>
