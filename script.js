@@ -227,10 +227,10 @@ const appetizers = [
 
 const sauces = [
   { id: 201, name: "Słodki chili", price: 3.99, type: "sauce", image: "./imag/sos_sweetchili_1000x1000.jpg" },
-  { id: 202, name: "Ranch", price: 3.99, type: "sauce", image: "./imag/sos_czosnkowyXXL_1000x1000.jpg" },
-  { id: 203, name: "Pomidorowy", price: 3.99, type: "sauce", image: "./imag/sos_pomidorowy1000x1000.jpg" },
-  { id: 204, name: "Masełko czosnkowe", price: 3.99, type: "sauce", image: "https://images.unsplash.com/photo-1589301773812-15f20a7b45ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" },
-  { id: 205, name: "BBQ", price: 3.99, type: "sauce", image: "https://images.unsplash.com/photo-1627308595171-d1b5d678385e?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" },
+  { id: 202, name: "Ranch", price: 3.99, type: "sauce", image: "" },
+  { id: 203, name: "Pomidorowy", price: 3.99, type: "sauce", image: "" },
+  { id: 204, name: "Masełko czosnkowe", price: 3.99, type: "sauce", image: "./imag/5.jpg" },
+  { id: 205, name: "BBQ", price: 3.99, type: "sauce", image: "" },
   { id: 206, name: "Miodowo-musztardowy", price: 3.99, type: "sauce", image: "./imag/sos_miodowo-musztardowy_1000x1000.jpg" },
 ]
 const pizzaMenu = document.getElementById("pizza-menu")
