@@ -322,6 +322,8 @@ function displayItems(items, container, itemType) {
         initShadcnSelect(selectWrapper)
       }
     }
+
+    ddzMakeDraggable(itemElement, item)
   })
 }
 
@@ -657,6 +659,167 @@ function init() {
   })
 
   updateCart()
+}
+
+/* ================================================
+   DRAG & DROP — pointer events, custom ghost card
+   ================================================ */
+
+function ddzShow() {
+  const z = document.getElementById('drag-drop-zone')
+  if (z) z.classList.add('ddz-visible')
+}
+
+function ddzHide() {
+  const z = document.getElementById('drag-drop-zone')
+  if (!z) return
+  setTimeout(() => z.classList.remove('ddz-visible', 'ddz-over', 'ddz-success'), 650)
+}
+
+function ddzAddItem(itemId, itemType, sourceEl) {
+  let arr
+  if (itemType === 'pizza')          arr = pizzas
+  else if (itemType === 'drink')     arr = drinks
+  else if (itemType === 'appetizer') arr = appetizers
+  else return
+
+  const item = arr.find(i => i.id === itemId)
+  if (!item) return
+
+  let selectedSize = null, finalPrice = item.price, sizeName = ''
+
+  if (itemType === 'pizza' && item.sizes && sourceEl) {
+    const sel = sourceEl.querySelector('.shadcn-select')
+    if (sel) {
+      const idx = Number.parseInt(sel.dataset.value, 10) || 1
+      selectedSize = idx
+      finalPrice   = item.price * item.sizes[idx].priceMultiplier
+      sizeName     = item.sizes[idx].name
+    }
+  }
+
+  const existing = cart.findIndex(
+    c => c.id === itemId && c.type === itemType && c.selectedSize === selectedSize
+  )
+  if (existing !== -1) {
+    cart[existing].quantity++
+  } else {
+    cart.push({ id: item.id, name: item.name, price: finalPrice,
+      image: item.image, type: item.type, quantity: 1, selectedSize, sizeName })
+  }
+  updateCart()
+}
+
+function ddzMakeDraggable(el, item) {
+  // Drag hint badge (visible on hover)
+  const badge = document.createElement('div')
+  badge.className = 'drag-hint-badge'
+  badge.innerHTML = '<i class="fas fa-grip"></i>&nbsp;Przeciągnij'
+  el.insertBefore(badge, el.firstChild)
+
+  el.addEventListener('pointerdown', (e) => {
+    // Skip touch (let it scroll naturally), non-primary buttons, interactive children
+    if (e.pointerType === 'touch') return
+    if (e.button !== 0) return
+    if (e.target.closest('button, a, .shadcn-select-trigger, .shadcn-select-content, .shadcn-select-item')) return
+
+    const startX = e.clientX, startY = e.clientY
+    let dragging = false, ghost = null
+
+    function createGhost(x, y) {
+      ghost = document.createElement('div')
+      ghost.className = 'drag-ghost'
+      // Set position before append to avoid single-frame flash
+      ghost.style.left = (x - 105) + 'px'
+      ghost.style.top  = (y - 40)  + 'px'
+      ghost.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="drag-ghost-info">
+          <div class="drag-ghost-name">${item.name}</div>
+          <div class="drag-ghost-price">${item.price.toFixed(2)} zł</div>
+        </div>`
+      document.body.appendChild(ghost)
+    }
+
+    function moveGhost(x, y) {
+      if (!ghost) return
+      ghost.style.left = (x - 105) + 'px'
+      ghost.style.top  = (y - 40)  + 'px'
+    }
+
+    function isOverZone(x, y) {
+      const z = document.getElementById('drag-drop-zone')
+      if (!z) return false
+      const r = z.getBoundingClientRect()
+      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom
+    }
+
+    function onMove(ev) {
+      if (!dragging) {
+        if (Math.hypot(ev.clientX - startX, ev.clientY - startY) < 8) return
+        dragging = true
+        el.classList.add('dragging')
+        document.body.classList.add('ddz-dragging')
+        createGhost(ev.clientX, ev.clientY)
+        ddzShow()
+      }
+      moveGhost(ev.clientX, ev.clientY)
+      const z = document.getElementById('drag-drop-zone')
+      if (z) z.classList.toggle('ddz-over', isOverZone(ev.clientX, ev.clientY))
+    }
+
+    function finish(x, y) {
+      document.removeEventListener('pointermove', onMove)
+      document.removeEventListener('pointerup',   onUp)
+      document.removeEventListener('pointercancel', onUp)
+
+      el.classList.remove('dragging')
+      document.body.classList.remove('ddz-dragging')
+      const z = document.getElementById('drag-drop-zone')
+      if (z) z.classList.remove('ddz-over')
+
+      const dropped = dragging && isOverZone(x, y)
+
+      if (ghost) {
+        if (dropped && z) {
+          const zr = z.getBoundingClientRect()
+          ghost.style.transition = 'left .22s ease, top .22s ease, transform .22s ease, opacity .22s ease'
+          ghost.style.left      = (zr.left + zr.width  / 2 - 20) + 'px'
+          ghost.style.top       = (zr.top  + zr.height / 2 - 20) + 'px'
+          ghost.style.transform = 'scale(0.08) rotate(25deg)'
+          ghost.style.opacity   = '0'
+        } else {
+          ghost.style.transition = 'transform .18s ease, opacity .18s ease'
+          ghost.style.transform  = 'scale(0.75) rotate(-3deg)'
+          ghost.style.opacity    = '0'
+        }
+        const g = ghost; ghost = null
+        setTimeout(() => { if (g.parentNode) g.parentNode.removeChild(g) }, 280)
+      }
+
+      if (dragging) ddzHide()
+
+      if (dropped) {
+        if (z) {
+          z.classList.add('ddz-success')
+          setTimeout(() => z.classList.remove('ddz-success'), 700)
+        }
+        cartIcon.classList.add('ddz-cart-bounce')
+        cartCount.classList.add('ddz-count-pop')
+        setTimeout(() => {
+          cartIcon.classList.remove('ddz-cart-bounce')
+          cartCount.classList.remove('ddz-count-pop')
+        }, 750)
+        ddzAddItem(item.id, item.type, el)
+      }
+    }
+
+    function onUp(ev) { finish(ev.clientX, ev.clientY) }
+
+    document.addEventListener('pointermove', onMove)
+    document.addEventListener('pointerup',   onUp)
+    document.addEventListener('pointercancel', onUp)
+  })
 }
 
 document.addEventListener("DOMContentLoaded", init)
