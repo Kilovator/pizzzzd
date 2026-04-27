@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,10 @@
     <link rel="stylesheet" href="styles.css?v=1.1">
     <link rel="stylesheet" href="auth.css?v=1.1">
 </head>
+
 <body>
- 
-    
+
+
     <div class="container">
         <header>
             <a href="index.html" class="logo-link">
@@ -28,7 +30,7 @@
                         <a href="#" id="logoutButton"><i class="fas fa-sign-out-alt"></i> Wyloguj</a>
                     </div>
                 </div>
-               
+
             </div>
         </header>
 
@@ -48,13 +50,13 @@
                     <a href="#" id="sidebarLogoutButton"><i class="fas fa-sign-out-alt"></i> Wyloguj</a>
                 </nav>
             </div>
-            
+
             <div class="profile-content">
                 <div class="profile-header">
                     <h2>Mój profil</h2>
                     <p>Zarządzaj swoimi danymi osobowymi</p>
                 </div>
-                
+
                 <div class="profile-card">
                     <form id="profileForm" class="profile-form">
                         <div class="form-row">
@@ -65,16 +67,17 @@
                                     <input type="text" id="profileName" name="name" value="Jan Kowalski" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="profileEmail">Adres e-mail</label>
                                 <div class="input-group">
                                     <i class="fas fa-envelope"></i>
-                                    <input type="email" id="profileEmail" name="email" value="jan.kowalski@example.com" required>
+                                    <input type="email" id="profileEmail" name="email" value="jan.kowalski@example.com"
+                                        required>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="profilePhone">Numer telefonu</label>
@@ -83,7 +86,7 @@
                                     <input type="tel" id="profilePhone" name="phone" value="+48 123 456 789" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="profileBirthdate">Data urodzenia</label>
                                 <div class="input-group">
@@ -92,11 +95,11 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-divider">
                             <span>Zmiana hasła</span>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="currentPassword">Obecne hasło</label>
@@ -108,7 +111,7 @@
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="newPassword">Nowe hasło</label>
                                 <div class="input-group">
@@ -120,12 +123,9 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="profileNewsletter" name="newsletter" checked>
-                            <label for="profileNewsletter">Chcę otrzymywać informacje o promocjach i nowościach</label>
-                        </div>
-                        
+
+
+
                         <div class="form-actions">
                             <button type="submit" class="primary-button">
                                 <i class="fas fa-save"></i> Zapisz zmiany
@@ -139,4 +139,5 @@
 
     <script type="module" src="auth.js"></script>
 </body>
+
 </html>

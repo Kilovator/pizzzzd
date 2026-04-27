@@ -246,7 +246,7 @@ function displayItems(items, container, itemType) {
 
     // Create the basic item HTML
     let itemHTML = `
-      <img src="${item.image}" alt="${item.name}" class="${itemType}-img">
+      <img src="${item.image}" alt="${item.name}" class="${itemType}-img" draggable="false">
       <div class="${itemType}-info">
         <h3>${item.name}</h3>
         <p>${item.description}</p>
@@ -337,29 +337,72 @@ function initShadcnSelect(wrapper) {
     content.hidden = isExpanded;
   });
 
-  items.forEach(item => {
+  items.forEach((item, index) => {
     item.addEventListener('click', (e) => {
       e.stopPropagation();
-      const value = item.dataset.value;
-      const text = item.querySelector('.shadcn-select-item-text').textContent;
+      selectItem(item);
+    });
+  });
 
-      wrapper.dataset.value = value;
-      valueDisplay.textContent = text;
+  function selectItem(item) {
+    const value = item.dataset.value;
+    const text = item.querySelector('.shadcn-select-item-text').textContent;
 
-      // Update selected states
-      items.forEach(i => {
-        i.setAttribute('aria-selected', 'false');
-        i.querySelector('.shadcn-select-item-indicator').style.display = 'none';
-      });
-      item.setAttribute('aria-selected', 'true');
-      item.querySelector('.shadcn-select-item-indicator').style.display = 'block';
+    wrapper.dataset.value = value;
+    valueDisplay.textContent = text;
 
-      // Close dropdown
+    // Update selected states
+    items.forEach(i => {
+      i.setAttribute('aria-selected', 'false');
+      i.querySelector('.shadcn-select-item-indicator').style.display = 'none';
+    });
+    item.setAttribute('aria-selected', 'true');
+    item.querySelector('.shadcn-select-item-indicator').style.display = 'block';
+
+    // Close dropdown
+    trigger.setAttribute('aria-expanded', 'false');
+    content.hidden = true;
+    trigger.focus();
+
+    // Update pizza price
+    updatePizzaPrice(wrapper, value);
+  }
+
+  // Keyboard support
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      trigger.setAttribute('aria-expanded', 'true');
+      content.hidden = false;
+      const selected = wrapper.querySelector('.shadcn-select-item[aria-selected="true"]');
+      if (selected) selected.focus();
+      else items[0].focus();
+    }
+  });
+
+  wrapper.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
       trigger.setAttribute('aria-expanded', 'false');
       content.hidden = true;
+      trigger.focus();
+    }
+  });
 
-      // Update pizza price
-      updatePizzaPrice(wrapper, value);
+  items.forEach((item, index) => {
+    item.setAttribute('tabindex', '-1');
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectItem(item);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = items[index + 1] || items[0];
+        next.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = items[index - 1] || items[items.length - 1];
+        prev.focus();
+      }
     });
   });
 }
