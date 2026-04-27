@@ -87,21 +87,10 @@
         </div>
     </div>
 
-    <!-- Добавляем футер в конец страницы -->
-    <div id="footer-container"></div>
 
-    <script src="auth.js"></script>
-    <script src="mobile.js"></script>
-    <script>
-        // Загружаем футер
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-container').innerHTML = data;
-                });
-        });
-    </script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="mobile.js"></script>
+
 </body>
 
 </html>

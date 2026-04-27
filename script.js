@@ -2,7 +2,7 @@ const pizzas = [
   {
     id: 1,
     name: "Margherita",
-    description: "Pizza z sosem pomidorowym, mozzarellą i świeżą bazyliąith",
+    description: "Pizza z sosem pomidorowym, mozzarellą i świeżą bazylią",
     price: 35.99,
     image:
       "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
@@ -72,7 +72,7 @@ const pizzas = [
   {
     id: 6,
     name: "BBQ Chicken",
-    description: "Sos BBQ, sos śmietanowy, mozzarella, grillowany kurczak, czerwona cebula, świeżą bazyliąith",
+    description: "Sos BBQ, sos śmietanowy, mozzarella, grillowany kurczak, czerwona cebula, świeżą bazylią",
     price: 37.99,
     image:
       "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
@@ -233,19 +233,7 @@ const sauces = [
   { id: 205, name: "BBQ", price: 3.99, type: "sauce", image: "./imag/BBQ_dip.jpg" },
   { id: 206, name: "Miodowo-musztardowy", price: 3.99, type: "sauce", image: "./imag/sos_miodowo-musztardowy_1000x1000.jpg" },
 ]
-const pizzaMenu = document.getElementById("pizza-menu")
-const drinksMenu = document.getElementById("drinks-menu")
-const appetizersMenu = document.getElementById("appetizers-menu")
-const cartIcon = document.getElementById("cart-icon")
-const cartContainer = document.getElementById("cart-container")
-const cartOverlay = document.getElementById("cart-overlay")
-const closeCart = document.getElementById("close-cart")
-const cartItems = document.getElementById("cart-items")
-const cartCount = document.getElementById("cart-count")
-const cartTotal = document.getElementById("cart-total")
-const checkoutBtn = document.getElementById("checkout-btn")
-const tabs = document.querySelectorAll(".tab")
-const tabContents = document.querySelectorAll(".tab-content")
+let pizzaMenu, drinksMenu, appetizersMenu, cartIcon, cartContainer, cartOverlay, closeCart, cartItems, cartCount, cartTotal, checkoutBtn, tabs, tabContents;
 
 let cart = []
 
@@ -557,37 +545,59 @@ function switchTab() {
   document.getElementById(`${tabId}-menu`).classList.add("active")
 }
 
-cartIcon.addEventListener("click", () => {
-  cartContainer.classList.add("active")
-  if (cartOverlay) cartOverlay.classList.add("active")
-})
 
-closeCart.addEventListener("click", () => {
-  cartContainer.classList.remove("active")
-  if (cartOverlay) cartOverlay.classList.remove("active")
-})
-
-if (cartOverlay) {
-  cartOverlay.addEventListener("click", () => {
-    cartContainer.classList.remove("active")
-    cartOverlay.classList.remove("active")
-  })
-}
-
-checkoutBtn.addEventListener("click", () => {
-  if (cart.length > 0) {
-    window.location.href = "formularz_zamowienia_pizza.html"
-    cart = []
-    updateCart()
-    cartContainer.classList.remove("active")
-    if (cartOverlay) cartOverlay.classList.remove("active")
-  } else {
-    alert("Twój koszyk jest pusty. Proszę dodać produkty przed przejściem do kasy.")
-  }
-})
 
 function init() {
+  pizzaMenu = document.getElementById("pizza-menu")
+  drinksMenu = document.getElementById("drinks-menu")
+  appetizersMenu = document.getElementById("appetizers-menu")
+  cartIcon = document.getElementById("cart-icon")
+  cartContainer = document.getElementById("cart-container")
+  cartOverlay = document.getElementById("cart-overlay")
+  closeCart = document.getElementById("close-cart")
+  cartItems = document.getElementById("cart-items")
+  cartCount = document.getElementById("cart-count")
+  cartTotal = document.getElementById("cart-total")
+  checkoutBtn = document.getElementById("checkout-btn")
+  tabs = document.querySelectorAll(".tab")
+  tabContents = document.querySelectorAll(".tab-content")
+
+  if (!pizzaMenu || !cartIcon || !cartContainer) {
+    console.warn("Required DOM elements not found for script.js initialization");
+    return;
+  }
+
   initSlider()
+
+  cartIcon.addEventListener("click", () => {
+    cartContainer.classList.add("active")
+    if (cartOverlay) cartOverlay.classList.add("active")
+  })
+
+  closeCart.addEventListener("click", () => {
+    cartContainer.classList.remove("active")
+    if (cartOverlay) cartOverlay.classList.remove("active")
+  })
+
+  if (cartOverlay) {
+    cartOverlay.addEventListener("click", () => {
+      cartContainer.classList.remove("active")
+      cartOverlay.classList.remove("active")
+    })
+  }
+
+  checkoutBtn.addEventListener("click", () => {
+    if (cart.length > 0) {
+      window.location.href = "formularz_zamowienia_pizza.html"
+      cart = []
+      updateCart()
+      cartContainer.classList.remove("active")
+      if (cartOverlay) cartOverlay.classList.remove("active")
+    } else {
+      alert("Twój koszyk jest pusty. Proszę dodać produkty przed przejściem do kasy.")
+    }
+  })
+
   displayItems(pizzas, pizzaMenu, "pizza")
   displayItems(drinks, drinksMenu, "drink")
   displayItems(appetizers, appetizersMenu, "appetizer")
