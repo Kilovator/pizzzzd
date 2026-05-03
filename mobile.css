@@ -30,21 +30,43 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      gap: 15px;
-      padding: 15px 20px;
+      gap: 8px;
+      padding: 10px 15px;
       background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(10px);
       z-index: 1000;
       margin-bottom: 20px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       width: 100%;
+      box-sizing: border-box;
+      overflow: visible;
     }
-  
+
+    /* Лого не переносится на новую строку */
+    header .logo-link,
+    header .logo-link h1 {
+      white-space: nowrap;
+      font-size: 18px !important;
+    }
+
     .header-buttons {
       width: auto;
       display: flex;
-      gap: 15px;
+      gap: 8px;
       align-items: center;
+      flex-shrink: 0;
+    }
+
+    /* Кнопка доступности — только иконка на мобильных */
+    #accessibility-btn {
+      padding: 8px 10px !important;
+      font-size: 16px !important;
+      border-radius: 10px !important;
+      min-width: 38px;
+    }
+
+    #accessibility-btn .acc-label {
+      display: none !important;
     }
   
     /* Мобильное меню */
@@ -290,21 +312,44 @@
     }
   
     .radio-group {
-      flex-direction: column;
+      display: flex !important;
+      flex-direction: column !important;
       gap: 10px;
     }
   
     .radio-option {
-      padding: 10px;
+      padding: 15px;
+      width: 100%;
+      box-sizing: border-box;
     }
   
-    .button-group {
-      flex-direction: column;
+    .button-group, .button-row {
+      display: flex !important;
+      flex-direction: column !important;
       gap: 10px;
     }
   
-    .button-group button {
+    .button-group button, .button-row button, .button-row .auth-button, .button-row .secondary-button {
+      width: 100% !important;
+      flex: none !important;
+    }
+
+    .input-group {
       width: 100%;
+      position: relative;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .input-group label {
+      max-width: 80%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
   

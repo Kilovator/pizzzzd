@@ -1,0 +1,268 @@
+/* ================================================
+   WIDGET DOSTĘPNOŚCI - Floating Panel
+   ================================================ */
+
+#accessibility-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+#accessibility-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    flex-shrink: 0;
+}
+
+#accessibility-btn:hover {
+    background: rgba(255, 107, 107, 0.25);
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+#accessibility-btn i {
+    font-size: 14px;
+}
+
+#accessibility-btn.active {
+    background: #ffdd57;
+    color: #000;
+    border-color: #ffdd57;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    #accessibility-btn span.acc-label {
+        display: none;
+    }
+    #accessibility-btn {
+        padding: 8px 10px;
+        font-size: 16px;
+    }
+}
+
+/* ================================================
+   TRYB DOSTĘPNOŚCI — aktywny
+   ================================================ */
+
+body.accessibility-mode {
+    background-color: #000 !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    line-height: 1.8 !important;
+}
+
+body.accessibility-mode *,
+body.accessibility-mode p,
+body.accessibility-mode span,
+body.accessibility-mode li,
+body.accessibility-mode td,
+body.accessibility-mode label {
+    font-size: 18px !important;
+    line-height: 1.8 !important;
+    color: #fff !important;
+    letter-spacing: 0.5px !important;
+}
+
+body.accessibility-mode h1,
+body.accessibility-mode .logo-link h1,
+body.accessibility-mode .logo-link {
+    font-size: 28px !important;
+    color: #fff !important;
+}
+
+body.accessibility-mode h2 {
+    font-size: 26px !important;
+    color: #fff !important;
+}
+
+body.accessibility-mode h3 {
+    font-size: 22px !important;
+    color: #fff !important;
+}
+
+body.accessibility-mode .auth-card,
+body.accessibility-mode .cart-container,
+body.accessibility-mode .pizza-item,
+body.accessibility-mode .drink-item,
+body.accessibility-mode .appetizer-item,
+body.accessibility-mode .sauce-upsell-item,
+body.accessibility-mode .shadcn-select-content {
+    background-color: #111 !important;
+    border: 2px solid #fff !important;
+    color: #fff !important;
+}
+
+body.accessibility-mode header {
+    background-color: #000 !important;
+    border-bottom: 3px solid #fff !important;
+}
+
+body.accessibility-mode a,
+body.accessibility-mode .mobile-menu-item,
+body.accessibility-mode .footer-links a,
+body.accessibility-mode .nav-link,
+body.accessibility-mode .logo-link {
+    color: #ffdd57 !important;
+    text-decoration: underline !important;
+    font-size: 18px !important;
+}
+
+body.accessibility-mode a:hover,
+body.accessibility-mode .mobile-menu-item:hover {
+    color: #fff !important;
+    background-color: #333 !important;
+}
+
+body.accessibility-mode button,
+body.accessibility-mode .auth-button,
+body.accessibility-mode .secondary-button,
+body.accessibility-mode .hero-cta,
+body.accessibility-mode .add-to-cart,
+body.accessibility-mode .checkout-btn,
+body.accessibility-mode .footer-button {
+    font-size: 18px !important;
+    padding: 16px 24px !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    background-color: #ff6b6b !important;
+    color: #fff !important;
+    border: 3px solid #fff !important;
+    cursor: pointer !important;
+    min-height: 52px !important;
+}
+
+body.accessibility-mode input,
+body.accessibility-mode textarea,
+body.accessibility-mode select {
+    background-color: #111 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+    border-radius: 8px !important;
+    font-size: 18px !important;
+    padding: 14px 18px !important;
+    min-height: 52px !important;
+}
+
+body.accessibility-mode input:focus,
+body.accessibility-mode textarea:focus,
+body.accessibility-mode select:focus {
+    border-color: #ffdd57 !important;
+    box-shadow: 0 0 0 3px rgba(255, 221, 87, 0.4) !important;
+}
+
+body.accessibility-mode input::placeholder,
+body.accessibility-mode textarea::placeholder {
+    color: #aaa !important;
+}
+
+body.accessibility-mode .radio-option {
+    border: 2px solid #555 !important;
+    background-color: #111 !important;
+    padding: 18px !important;
+}
+
+body.accessibility-mode .radio-option.selected {
+    border-color: #ffdd57 !important;
+    background-color: rgba(255, 221, 87, 0.1) !important;
+}
+
+body.accessibility-mode .radio-option i {
+    color: #ffdd57 !important;
+    font-size: 26px !important;
+}
+
+body.accessibility-mode footer,
+body.accessibility-mode .footer {
+    background-color: #111 !important;
+    border-top: 3px solid #fff !important;
+}
+
+body.accessibility-mode .footer-title {
+    color: #ffdd57 !important;
+    font-size: 20px !important;
+}
+
+body.accessibility-mode .footer-text,
+body.accessibility-mode .footer-contact li,
+body.accessibility-mode .footer-bottom {
+    color: #ddd !important;
+}
+
+body.accessibility-mode .tab {
+    font-size: 17px !important;
+    padding: 12px 20px !important;
+    border: 2px solid #444 !important;
+    color: #fff !important;
+}
+
+body.accessibility-mode .tab.active {
+    background-color: #ff6b6b !important;
+    border-color: #fff !important;
+    color: #fff !important;
+}
+
+body.accessibility-mode .pizza-price,
+body.accessibility-mode .drink-price,
+body.accessibility-mode .appetizer-price,
+body.accessibility-mode .cart-item-price,
+body.accessibility-mode .cart-total-amount {
+    color: #ffdd57 !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+body.accessibility-mode .cart-item {
+    border-bottom: 1px solid #444 !important;
+    padding: 15px 0 !important;
+}
+
+body.accessibility-mode .cart-item-name {
+    font-size: 17px !important;
+    color: #fff !important;
+}
+
+body.accessibility-mode .input-group i {
+    color: #ffdd57 !important;
+}
+
+body.accessibility-mode #accessibility-btn {
+    background: #ffdd57 !important;
+    color: #000 !important;
+    border: 3px solid #000 !important;
+    font-weight: 800 !important;
+}
+
+body.accessibility-mode .mobile-menu {
+    background-color: #000 !important;
+    border-right: 3px solid #fff !important;
+}
+
+@media (max-width: 768px) {
+    #accessibility-btn {
+        bottom: 16px;
+        right: 16px;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}

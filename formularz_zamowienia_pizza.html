@@ -7,9 +7,27 @@
     <title>Zamów pizzę – Pizzeria Neapol</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css?v=1.1">
-    <link rel="stylesheet" href="auth.css?v=1.1">
-    <link rel="stylesheet" href="mobile.css?v=1.1">
+    <link rel="stylesheet" href="auth.css?v=1.2">
+    <link rel="stylesheet" href="mobile.css?v=1.2">
+    <link rel="stylesheet" href="accessibility.css">
     <style>
+        /* На странице заказа скрываем кнопку меню и центрируем лого */
+        .mobile-menu-toggle {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                justify-content: center !important;
+                text-align: center !important;
+            }
+
+            header .logo-link {
+                display: block;
+                text-align: center;
+                width: 100%;
+            }
+        }
         body {
             min-height: 100vh;
             overflow-x: hidden;
@@ -36,13 +54,17 @@
             pointer-events: auto;
         }
 
+        header #accessibility-btn {
+            pointer-events: auto;
+        }
+
         .auth-container {
             margin-top: 0 !important;
             min-height: 100vh !important;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
-            padding: 80px 20px 40px !important;
+            padding: 100px 20px 40px !important;
             box-sizing: border-box;
             width: 100%;
         }
@@ -539,18 +561,25 @@
                 const name = document.getElementById('name').value.trim();
                 const phone = document.getElementById('phone').value.trim();
 
+                const nameInput = document.getElementById('name');
+                const phoneInput = document.getElementById('phone');
+
                 if (!name) {
                     document.getElementById('name-error').textContent = 'Proszę podać imię i nazwisko';
+                    nameInput.closest('.input-group').classList.add('has-error');
                     isValid = false;
                 } else {
                     document.getElementById('name-error').textContent = '';
+                    nameInput.closest('.input-group').classList.remove('has-error');
                 }
 
                 if (!phone || !/^[0-9+\s()-]{9,15}$/.test(phone)) {
                     document.getElementById('phone-error').textContent = 'Proszę podać prawidłowy numer telefonu';
+                    phoneInput.closest('.input-group').classList.add('has-error');
                     isValid = false;
                 } else {
                     document.getElementById('phone-error').textContent = '';
+                    phoneInput.closest('.input-group').classList.remove('has-error');
                 }
 
                 return isValid;
@@ -623,6 +652,7 @@
         });
     </script>
     <script type="module" src="mobile.js"></script>
+    <script src="accessibility.js"></script>
 </body>
 
 </html>
