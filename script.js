@@ -102,7 +102,7 @@ const pizzas = [
     name: "4 cheeze",
     description: "Sos pomidorowy, mozzarella, ser feta, ser pleśniawy ",
     price: 36.99,
-    image: "https://xn----8sbtijjjbaolrt0e.com/image/cache/catalog/photo_2020-09-08_09-28-24-637x637.jpg",
+    image: "imag/5sf3r5k853npm377v3319fxjv7303y2c.jfif",
     type: "pizza",
     sizes: [
       { name: "Mała (25cm)", priceMultiplier: 0.8 },
@@ -719,13 +719,13 @@ function init() {
    ================================================ */
 
 function initSlider() {
-  const track   = document.getElementById('hero-track')
-  const slider  = document.getElementById('hero-slider')
+  const track = document.getElementById('hero-track')
+  const slider = document.getElementById('hero-slider')
   const prevBtn = document.getElementById('hero-prev')
   const nextBtn = document.getElementById('hero-next')
-  const bar     = document.getElementById('hero-progress-bar')
-  const slides  = document.querySelectorAll('.hero-slide')
-  const dots    = document.querySelectorAll('.hero-dot')
+  const bar = document.getElementById('hero-progress-bar')
+  const slides = document.querySelectorAll('.hero-slide')
+  const dots = document.querySelectorAll('.hero-dot')
   if (!track || !slides.length) return
 
   const DURATION = 15200
@@ -825,8 +825,8 @@ function ddzHide() {
 
 function ddzAddItem(itemId, itemType, sourceEl) {
   let arr
-  if (itemType === 'pizza')          arr = pizzas
-  else if (itemType === 'drink')     arr = drinks
+  if (itemType === 'pizza') arr = pizzas
+  else if (itemType === 'drink') arr = drinks
   else if (itemType === 'appetizer') arr = appetizers
   else return
 
@@ -840,8 +840,8 @@ function ddzAddItem(itemId, itemType, sourceEl) {
     if (sel) {
       const idx = Number.parseInt(sel.dataset.value, 10) || 1
       selectedSize = idx
-      finalPrice   = item.price * item.sizes[idx].priceMultiplier
-      sizeName     = item.sizes[idx].name
+      finalPrice = item.price * item.sizes[idx].priceMultiplier
+      sizeName = item.sizes[idx].name
     }
   }
 
@@ -851,8 +851,10 @@ function ddzAddItem(itemId, itemType, sourceEl) {
   if (existing !== -1) {
     cart[existing].quantity++
   } else {
-    cart.push({ id: item.id, name: item.name, price: finalPrice,
-      image: item.image, type: item.type, quantity: 1, selectedSize, sizeName })
+    cart.push({
+      id: item.id, name: item.name, price: finalPrice,
+      image: item.image, type: item.type, quantity: 1, selectedSize, sizeName
+    })
   }
   updateCart()
 }
@@ -882,7 +884,7 @@ function ddzMakeDraggable(el, item) {
       ghost = document.createElement('div')
       ghost.className = 'drag-ghost'
       ghost.style.left = (x - 105) + 'px'
-      ghost.style.top  = (y - 40)  + 'px'
+      ghost.style.top = (y - 40) + 'px'
       ghost.innerHTML = `
         <img src="${item.image}" alt="${item.name}">
         <div class="drag-ghost-info">
@@ -895,7 +897,7 @@ function ddzMakeDraggable(el, item) {
     function moveGhost(x, y) {
       if (!ghost) return
       ghost.style.left = (x - 105) + 'px'
-      ghost.style.top  = (y - 40)  + 'px'
+      ghost.style.top = (y - 40) + 'px'
     }
 
     function isOverZone(x, y) {
@@ -921,7 +923,7 @@ function ddzMakeDraggable(el, item) {
 
     function finish(x, y) {
       el.removeEventListener('pointermove', onMove)
-      el.removeEventListener('pointerup',   onUp)
+      el.removeEventListener('pointerup', onUp)
       el.removeEventListener('pointercancel', onUp)
 
       el.classList.remove('dragging')
@@ -935,14 +937,14 @@ function ddzMakeDraggable(el, item) {
         if (dropped && z) {
           const zr = z.getBoundingClientRect()
           ghost.style.transition = 'left .22s ease, top .22s ease, transform .22s ease, opacity .22s ease'
-          ghost.style.left      = (zr.left + zr.width  / 2 - 20) + 'px'
-          ghost.style.top       = (zr.top  + zr.height / 2 - 20) + 'px'
+          ghost.style.left = (zr.left + zr.width / 2 - 20) + 'px'
+          ghost.style.top = (zr.top + zr.height / 2 - 20) + 'px'
           ghost.style.transform = 'scale(0.08) rotate(25deg)'
-          ghost.style.opacity   = '0'
+          ghost.style.opacity = '0'
         } else {
           ghost.style.transition = 'transform .18s ease, opacity .18s ease'
-          ghost.style.transform  = 'scale(0.75) rotate(-3deg)'
-          ghost.style.opacity    = '0'
+          ghost.style.transform = 'scale(0.75) rotate(-3deg)'
+          ghost.style.opacity = '0'
         }
         const g = ghost; ghost = null
         setTimeout(() => { if (g.parentNode) g.parentNode.removeChild(g) }, 280)
@@ -968,7 +970,7 @@ function ddzMakeDraggable(el, item) {
     function onUp(ev) { finish(ev.clientX, ev.clientY) }
 
     el.addEventListener('pointermove', onMove)
-    el.addEventListener('pointerup',   onUp)
+    el.addEventListener('pointerup', onUp)
     el.addEventListener('pointercancel', onUp)
   })
 }

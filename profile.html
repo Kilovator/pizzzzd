@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moje konto – Pizzeria Neapol</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1.1">
-    <link rel="stylesheet" href="auth.css?v=1.1">
-    <link rel="stylesheet" href="accessibility.css">
+    <link rel="stylesheet" href="styles.css?v=2.0">
+    <link rel="stylesheet" href="auth.css?v=2.0">
+    <link rel="stylesheet" href="mobile.css?v=2.0">
+    <link rel="stylesheet" href="footer.css?v=2.0">
+    <link rel="stylesheet" href="accessibility.css?v=2.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
-<body>
-
+<body class="auth-page">
+    <a href="#main-content" class="skip-link">Przejdź do treści</a>
+    <div class="side-decoration left-decoration"></div>
+    <div class="side-decoration right-decoration"></div>
 
     <div class="container">
         <header>
@@ -31,115 +36,128 @@
                         <a href="#" id="logoutButton"><i class="fas fa-sign-out-alt"></i> Wyloguj</a>
                     </div>
                 </div>
-
             </div>
         </header>
 
-        <div class="profile-container">
-            <div class="profile-sidebar">
-                <div class="profile-user">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
+        <main id="main-content">
+            <div class="profile-container">
+                <aside class="profile-sidebar">
+                    <div class="profile-user">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-user-info">
+                            <h3 id="profileUserName">Jan Kowalski</h3>
+                            <p id="profileUserEmail">jan.kowalski@example.com</p>
+                        </div>
                     </div>
-                    <h3 id="profileUserName">Jan Kowalski</h3>
-                    <p id="profileUserEmail">jan.kowalski@example.com</p>
-                </div>
-                <nav class="profile-nav">
-                    <a href="profile.html" class="active"><i class="fas fa-user"></i> Mój profil</a>
-                    <a href="orders.html"><i class="fas fa-list"></i> Moje zamówienia</a>
-                    <a href="addresses.html"><i class="fas fa-map-marker-alt"></i> Moje adresy</a>
-                    <a href="#" id="sidebarLogoutButton"><i class="fas fa-sign-out-alt"></i> Wyloguj</a>
-                </nav>
-            </div>
+                    <nav class="profile-nav">
+                        <a href="profile.html" class="active"><i class="fas fa-user"></i> Mój profil</a>
+                        <a href="#"><i class="fas fa-list"></i> Moje zamówienia</a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Moje adresy</a>
+                        <a href="#" id="sidebarLogoutButton"><i class="fas fa-sign-out-alt"></i> Wyloguj</a>
+                    </nav>
+                </aside>
 
-            <div class="profile-content">
-                <div class="profile-header">
-                    <h2>Mój profil</h2>
-                    <p>Zarządzaj swoimi danymi osobowymi</p>
-                </div>
+                <div class="profile-content">
+                    <div class="profile-header">
+                        <h2>Mój profil</h2>
+                        <p>Zarządzaj swoimi danymi osobowymi i bezpieczeństwem konta</p>
+                    </div>
 
-                <div class="profile-card">
-                    <form id="profileForm" class="profile-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="profileName">Imię i nazwisko</label>
-                                <div class="input-group">
-                                    <i class="fas fa-user"></i>
-                                    <input type="text" id="profileName" name="name" value="Jan Kowalski" required>
+                    <div class="profile-card">
+                        <form id="profileForm" class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profileName">Imię i nazwisko</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-user"></i>
+                                        <input type="text" id="profileName" name="name" value="Jan Kowalski" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileEmail">Adres e-mail</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-envelope"></i>
+                                        <input type="email" id="profileEmail" name="email" value="jan.kowalski@example.com"
+                                            required>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="profileEmail">Adres e-mail</label>
-                                <div class="input-group">
-                                    <i class="fas fa-envelope"></i>
-                                    <input type="email" id="profileEmail" name="email" value="jan.kowalski@example.com"
-                                        required>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="profilePhone">Numer telefonu</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-phone"></i>
+                                        <input type="tel" id="profilePhone" name="phone" value="+48 123 456 789" required>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="profilePhone">Numer telefonu</label>
-                                <div class="input-group">
-                                    <i class="fas fa-phone"></i>
-                                    <input type="tel" id="profilePhone" name="phone" value="+48 123 456 789" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="profileBirthdate">Data urodzenia</label>
-                                <div class="input-group">
-                                    <i class="fas fa-calendar"></i>
-                                    <input type="date" id="profileBirthdate" name="birthdate" value="1990-01-01">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-divider">
-                            <span>Zmiana hasła</span>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="currentPassword">Obecne hasło</label>
-                                <div class="input-group">
-                                    <i class="fas fa-lock"></i>
-                                    <input type="password" id="currentPassword" name="currentPassword">
-                                    <button type="button" class="toggle-password" tabindex="-1">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
+                                <div class="form-group">
+                                    <label for="profileBirthdate">Data urodzenia</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-calendar"></i>
+                                        <input type="date" id="profileBirthdate" name="birthdate" value="1990-01-01">
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="newPassword">Nowe hasło</label>
-                                <div class="input-group">
-                                    <i class="fas fa-lock"></i>
-                                    <input type="password" id="newPassword" name="newPassword">
-                                    <button type="button" class="toggle-password" tabindex="-1">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
+                            <div class="form-divider">
+                                <span>Zmiana hasła</span>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="currentPassword">Obecne hasło</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" id="currentPassword" name="currentPassword" placeholder="Wpisz obecne hasło">
+                                        <button type="button" class="toggle-password" tabindex="-1">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="newPassword">Nowe hasło</label>
+                                    <div class="input-group">
+                                        <i class="fas fa-lock"></i>
+                                        <input type="password" id="newPassword" name="newPassword" placeholder="Wpisz nowe hasło">
+                                        <button type="button" class="toggle-password" tabindex="-1">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-
-
-                        <div class="form-actions">
-                            <button type="submit" class="primary-button">
-                                <i class="fas fa-save"></i> Zapisz zmiany
-                            </button>
-                        </div>
-                    </form>
+                            <div class="form-actions">
+                                <button type="submit" class="primary-button">
+                                    <i class="fas fa-save"></i> Zapisz zmiany
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 
+    <div id="footer-container"></div>
+
     <script type="module" src="auth.js"></script>
+    <script type="module" src="mobile.js"></script>
     <script src="accessibility.js"></script>
+    <script>
+        // Load global footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(err => console.error('Error loading footer:', err));
+    </script>
 </body>
 
-</html>
+</html>

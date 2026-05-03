@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rejestracja – Pizzeria Neapol</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1.1">
-    <link rel="stylesheet" href="auth.css?v=1.1">
-    <link rel="stylesheet" href="mobile.css?v=1.1">
-    <link rel="stylesheet" href="footer.css?v=1.1">
-    <link rel="stylesheet" href="accessibility.css">
+    <link rel="stylesheet" href="styles.css?v=2.0">
+    <link rel="stylesheet" href="auth.css?v=2.0">
+    <link rel="stylesheet" href="mobile.css?v=2.0">
+    <link rel="stylesheet" href="footer.css?v=2.0">
+    <link rel="stylesheet" href="accessibility.css?v=2.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body class="auth-page">
@@ -24,7 +25,6 @@
                 <h1>Pizzeria Neapol</h1>
             </a>
             <div class="header-buttons">
-                <!-- Cart and Auth links removed for cleaner registration view -->
             </div>
         </header>
 
@@ -35,8 +35,8 @@
                         <div class="auth-logo">
                             <i class="fas fa-pizza-slice"></i>
                         </div>
-                        <h2>Rejestracja</h2>
-                        <p>Utwórz konto</p>
+                        <h2>Dołącz do nas</h2>
+                        <p>Odkryj prawdziwy smak neapolitańskiej pizzy</p>
                     </div>
 
                     <form id="registerForm" class="auth-form">
@@ -96,14 +96,10 @@
 
                         <div class="form-group checkbox-group">
                             <input type="checkbox" id="terms" name="terms" required>
-                            <label for="terms">Akceptuję <a class="polityka-prywatnosci1"
-                                    href="regulamin.html">regulamin</a> i
-                                <a class="polityka-prywatnosci1" href="polityka-prywatnosci.html">politykę
-                                    prywatności</a></label>
+                            <label for="terms">Akceptuję <a href="regulamin.html">regulamin</a> i
+                                <a href="polityka-prywatnosci.html">politykę prywatności</a></label>
                             <div id="terms-error" class="error-message" aria-live="assertive"></div>
                         </div>
-
-
 
                         <button type="submit" class="auth-button">
                             <i class="fas fa-user-plus"></i> Zarejestruj się
@@ -111,29 +107,27 @@
                     </form>
 
                     <div class="auth-footer">
-                        <p class="auth-footer1">Masz już konto? <a href="login.html">Zaloguj się</a></p>
+                        <p>Masz już konto? <a href="login.html">Zaloguj się</a></p>
                     </div>
                 </div>
             </div>
-    </div>
-    </main>
+        </main>
     </div>
 
-    <!-- Добавляем футер в конец страницы -->
+    <div id="footer-container"></div>
 
     <script type="module" src="auth.js"></script>
     <script type="module" src="mobile.js"></script>
     <script src="accessibility.js"></script>
     <script>
-        // Загружаем футер
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-container').innerHTML = data;
-                });
-        });
+        // Load global footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(err => console.error('Error loading footer:', err));
     </script>
 </body>
 
-</html>
+</html>

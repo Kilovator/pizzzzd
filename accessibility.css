@@ -451,18 +451,67 @@ body.accessibility-mode textarea,
 body.accessibility-mode select {
     background: #0a0a0a !important;
     color: #FFD700 !important;
-    border: 2px solid rgba(255, 215, 0, 0.55) !important;
+    border: 2px solid #FFD700 !important;
     border-radius: 8px !important;
-    font-size: 16px !important;
-    padding: 12px 16px !important;
-    min-height: 48px !important;
+    font-size: 18px !important;
+    padding: 12px 55px 12px 60px !important;
+    min-height: 54px !important;
 }
+
+body.accessibility-mode .input-group i {
+    left: 20px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 22px !important;
+    z-index: 3 !important;
+}
+
+
+body.accessibility-mode .toggle-password {
+    right: 10px !important;
+    color: #FFD700 !important;
+}
+
+body.accessibility-mode .toggle-password i {
+    font-size: 24px !important;
+}
+
+
+body.accessibility-mode .input-group label {
+    left: 60px !important;
+    color: #FFD700 !important;
+    background: transparent !important;
+}
+
+body.accessibility-mode .input-group input:focus ~ label,
+body.accessibility-mode .input-group input:not(:placeholder-shown) ~ label {
+    top: 0 !important;
+    left: 40px !important;
+    background: #000 !important;
+    color: #FFD700 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    padding: 0 10px !important;
+    border: 1px solid #FFD700 !important;
+}
+
+body.accessibility-mode .toggle-password {
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    height: 44px !important;
+    width: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
 
 body.accessibility-mode input:focus,
 body.accessibility-mode textarea:focus,
 body.accessibility-mode select:focus {
     border-color: #FFD700 !important;
-    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25) !important;
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.4) !important;
     outline: none !important;
 }
 
@@ -584,3 +633,70 @@ body.accessibility-mode .user-dropdown a:hover {
         box-shadow: 0 -4px 30px rgba(255, 215, 0, 0.18) !important;
     }
 }
+
+/* --- Profile Page Accessibility --- */
+body.accessibility-mode .profile-sidebar {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+
+body.accessibility-mode .profile-user {
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3) !important;
+}
+
+body.accessibility-mode .profile-avatar {
+    background: #000 !important;
+    border: 3px solid #FFD700 !important;
+}
+
+body.accessibility-mode .profile-nav a {
+    text-decoration: none !important;
+    border: 1px solid transparent !important;
+}
+
+body.accessibility-mode .profile-nav a.active {
+    background: #FFD700 !important;
+    color: #000 !important;
+}
+
+body.accessibility-mode .profile-nav a.active i {
+    color: #000 !important;
+}
+
+body.accessibility-mode .profile-card {
+    background: #000 !important;
+    border: 2px solid #FFD700 !important;
+}
+
+body.accessibility-mode .form-divider span {
+    background: #FFD700 !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+}
+
+body.accessibility-mode .form-divider::after {
+    background: #FFD700 !important;
+}
+
+body.accessibility-mode .primary-button {
+    background: #FFD700 !important;
+    color: #000 !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    border: 2px solid #000 !important;
+}
+
+@media (max-width: 992px) {
+    body.accessibility-mode .profile-user {
+        border-right: 2px solid rgba(255, 215, 0, 0.3) !important;
+        border-bottom: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    body.accessibility-mode .profile-user {
+        border-right: none !important;
+        border-bottom: 2px solid rgba(255, 215, 0, 0.3) !important;
+    }
+}
+
