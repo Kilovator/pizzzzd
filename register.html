@@ -114,20 +114,9 @@
         </main>
     </div>
 
-    <div id="footer-container"></div>
-
     <script type="module" src="auth.js"></script>
     <script type="module" src="mobile.js"></script>
     <script src="/accessibility.js"></script>
-    <script>
-        // Load global footer
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(err => console.error('Error loading footer:', err));
-    </script>
 </body>
 
 </html>

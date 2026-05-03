@@ -13,7 +13,7 @@ function createMobileMenu() {
   const menuToggle = document.createElement("button")
   menuToggle.className = "mobile-menu-toggle"
   menuToggle.innerHTML = '<i class="fas fa-bars"></i>'
-  menuToggle.setAttribute("aria-label", "Открыть меню")
+  menuToggle.setAttribute("aria-label", "Otwoz menu")
 
   header.insertBefore(menuToggle, header.firstChild)
 
@@ -21,29 +21,29 @@ function createMobileMenu() {
     <div class="mobile-menu-overlay"></div>
     <div class="mobile-menu">
       <div class="mobile-menu-header">
-        <h3>Меню</h3>
-        <button class="close-mobile-menu" aria-label="Закрыть меню">
+        <h3>Menu</h3>
+        <button class="close-mobile-menu" aria-label="zamknij menu">
           <i class="fas fa-times"></i>
         </button>
       </div>
       <div class="mobile-menu-items">
         <a href="index.html" class="mobile-menu-item">
-          <i class="fas fa-home"></i> Главная
+          <i class="fas fa-home"></i> Glowna strona
         </a>
         <a href="#" class="mobile-menu-item" data-tab="pizza">
-          <i class="fas fa-pizza-slice"></i> Пицца
+          <i class="fas fa-pizza-slice"></i> Pizze
         </a>
         <a href="#" class="mobile-menu-item" data-tab="drinks">
-          <i class="fas fa-glass-cheers"></i> Напитки
+          <i class="fas fa-glass-cheers"></i> Napoje
         </a>
         <a href="#" class="mobile-menu-item" data-tab="appetizers">
-          <i class="fas fa-cheese"></i> Закуски
+          <i class="fas fa-cheese"></i> Przystawki
         </a>
         <a href="login.html" class="mobile-menu-item">
-          <i class="fas fa-sign-in-alt"></i> Вход
+          <i class="fas fa-sign-in-alt"></i> Zaloguj sie
         </a>
         <a href="register.html" class="mobile-menu-item">
-          <i class="fas fa-user-plus"></i> Регистрация
+          <i class="fas fa-user-plus"></i> Rejestracja
         </a>
       </div>
     </div>
@@ -64,7 +64,7 @@ function initMobileEventListeners() {
   menuToggle.addEventListener("click", () => {
     mobileMenu.classList.add("active")
     overlay.classList.add("active")
-    document.body.style.overflow = "hidden" 
+    document.body.style.overflow = "hidden"
   })
 
   closeMenu.addEventListener("click", closeMobileMenu)
@@ -87,7 +87,7 @@ function initMobileEventListeners() {
   function closeMobileMenu() {
     mobileMenu.classList.remove("active")
     overlay.classList.remove("active")
-    document.body.style.overflow = "" 
+    document.body.style.overflow = ""
   }
 }
 
