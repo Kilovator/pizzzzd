@@ -774,6 +774,31 @@ function initSlider() {
   slider.addEventListener('mouseenter', () => { paused = true })
   slider.addEventListener('mouseleave', () => { paused = false })
 
+  // Touch swipe for mobile
+  let touchStartX = 0, touchStartY = 0, touchSwiping = false
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX
+    touchStartY = e.touches[0].clientY
+    touchSwiping = false
+  }, { passive: true })
+  slider.addEventListener('touchmove', (e) => {
+    const dx = e.touches[0].clientX - touchStartX
+    const dy = e.touches[0].clientY - touchStartY
+    if (!touchSwiping && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      touchSwiping = true
+    }
+    if (touchSwiping) e.preventDefault()
+  }, { passive: false })
+  slider.addEventListener('touchend', (e) => {
+    if (!touchSwiping) return
+    const dx = e.changedTouches[0].clientX - touchStartX
+    if (Math.abs(dx) > 45) {
+      dx < 0 ? goTo(current + 1) : goTo(current - 1)
+      startAuto()
+    }
+    touchSwiping = false
+  })
+
   // CTA buttons scroll to tabs
   document.querySelectorAll('.hero-cta[data-tab-link]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -833,17 +858,22 @@ function ddzAddItem(itemId, itemType, sourceEl) {
 }
 
 function ddzMakeDraggable(el, item) {
-  // Drag hint badge (visible on hover)
-  const badge = document.createElement('div')
-  badge.className = 'drag-hint-badge'
-  badge.innerHTML = '<i class="fas fa-grip"></i>&nbsp;Przeciągnij'
-  el.insertBefore(badge, el.firstChild)
+  // Badge — тільки на пристроях з мишкою
+  if (!window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+    const badge = document.createElement('div')
+    badge.className = 'drag-hint-badge'
+    badge.innerHTML = '<i class="fas fa-grip"></i>&nbsp;Przeciągnij'
+    el.insertBefore(badge, el.firstChild)
+  }
 
   el.addEventListener('pointerdown', (e) => {
-    // Skip touch (let it scroll naturally), non-primary buttons, interactive children
-    if (e.pointerType === 'touch') return
+    if (e.pointerType !== 'mouse') return
     if (e.button !== 0) return
-    if (e.target.closest('button, a, .shadcn-select-trigger, .shadcn-select-content, .shadcn-select-item')) return
+    // Drag тільки якщо почали тягнути за фото
+    if (!e.target.closest('img')) return
+
+    e.preventDefault()
+    el.setPointerCapture(e.pointerId)
 
     const startX = e.clientX, startY = e.clientY
     let dragging = false, ghost = null
@@ -851,7 +881,6 @@ function ddzMakeDraggable(el, item) {
     function createGhost(x, y) {
       ghost = document.createElement('div')
       ghost.className = 'drag-ghost'
-      // Set position before append to avoid single-frame flash
       ghost.style.left = (x - 105) + 'px'
       ghost.style.top  = (y - 40)  + 'px'
       ghost.innerHTML = `
@@ -891,9 +920,9 @@ function ddzMakeDraggable(el, item) {
     }
 
     function finish(x, y) {
-      document.removeEventListener('pointermove', onMove)
-      document.removeEventListener('pointerup',   onUp)
-      document.removeEventListener('pointercancel', onUp)
+      el.removeEventListener('pointermove', onMove)
+      el.removeEventListener('pointerup',   onUp)
+      el.removeEventListener('pointercancel', onUp)
 
       el.classList.remove('dragging')
       document.body.classList.remove('ddz-dragging')
@@ -938,9 +967,9 @@ function ddzMakeDraggable(el, item) {
 
     function onUp(ev) { finish(ev.clientX, ev.clientY) }
 
-    document.addEventListener('pointermove', onMove)
-    document.addEventListener('pointerup',   onUp)
-    document.addEventListener('pointercancel', onUp)
+    el.addEventListener('pointermove', onMove)
+    el.addEventListener('pointerup',   onUp)
+    el.addEventListener('pointercancel', onUp)
   })
 }
 

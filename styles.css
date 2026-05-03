@@ -561,7 +561,7 @@ h1 {
   transition: transform 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   user-select: none;
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 .pizza-item:hover,
@@ -825,17 +825,31 @@ p {
 }
 
 .sauces-list::-webkit-scrollbar {
-  height: 8px;
+  height: 5px;
 }
 
 .sauces-list::-webkit-scrollbar-track {
-  background: #1e1e1e;
+  background: #1a1a1a;
   border-radius: 4px;
 }
 
 .sauces-list::-webkit-scrollbar-thumb {
-  background: #ff6b6b;
+  background: #444;
   border-radius: 4px;
+}
+
+/* Scrollbar для списку товарів у кошику */
+.cart-items::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 3px;
 }
 
 .sauce-upsell-item {
@@ -1084,17 +1098,24 @@ body.ddz-dragging * {
   -webkit-user-select: none !important;
 }
 
-/* Make product cards draggable — grab cursor + relative positioning for badge */
+/* Cards: relative for badge positioning */
 .pizza-item,
 .drink-item,
 .appetizer-item {
-  cursor: grab;
+  cursor: default;
   position: relative;
 }
 
-.pizza-item:active,
-.drink-item:active,
-.appetizer-item:active {
+/* Grab cursor only on the product image */
+.pizza-img,
+.drink-img,
+.appetizer-img {
+  cursor: grab;
+}
+
+.pizza-item.dragging .pizza-img,
+.drink-item.dragging .drink-img,
+.appetizer-item.dragging .appetizer-img {
   cursor: grabbing;
 }
 
@@ -1140,6 +1161,12 @@ body.ddz-dragging * {
   box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.6) !important;
   filter: saturate(0.4);
   transition: opacity 0.15s, transform 0.15s, filter 0.15s !important;
+  user-select: none;
+}
+
+body.ddz-dragging {
+  user-select: none;
+  cursor: grabbing !important;
 }
 
 /* Custom drag ghost */

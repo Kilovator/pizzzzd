@@ -97,34 +97,31 @@ function adjustCartForMobile() {
 
   if (!cartContainer || !closeCart) return
 
-  let startX, startY, endX, endY
-  const minSwipeDistance = 50
+  let startY = 0
+  const minSwipeDistance = 60
 
   cartContainer.addEventListener(
     "touchstart",
     (e) => {
-      startX = e.touches[0].clientX
       startY = e.touches[0].clientY
     },
-    false,
+    { passive: true },
   )
 
   cartContainer.addEventListener(
     "touchend",
     (e) => {
-      endX = e.changedTouches[0].clientX
-      endY = e.changedTouches[0].clientY
+      const endY = e.changedTouches[0].clientY
+      const yDiff = endY - startY
 
-      const xDiff = startX - endX
-      const yDiff = startY - endY
-
-      if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > minSwipeDistance) {
-        if (xDiff < 0) {
-          cartContainer.classList.remove("active")
-        }
+      // Swipe down to close (bottom sheet behavior)
+      if (yDiff > minSwipeDistance) {
+        cartContainer.classList.remove("active")
+        const overlay = document.getElementById("cart-overlay")
+        if (overlay) overlay.classList.remove("active")
       }
     },
-    false,
+    { passive: true },
   )
 
   document.addEventListener("click", (e) => {
