@@ -8,7 +8,12 @@ export default defineConfig({
   plugins: [
     // Copy imag/ folder to dist/imag/ during production build
     viteStaticCopy({
-      targets: [{ src: 'imag', dest: '.' }]
+      targets: [
+        { src: 'imag', dest: '.' },
+        { src: 'footer.html', dest: '.' },
+        { src: 'accessibility.js', dest: '.' },
+        { src: 'accessibility.css', dest: '.' }
+      ]
     })
   ],
 
