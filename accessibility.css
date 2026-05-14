@@ -100,16 +100,16 @@ body.accessibility-mode li,
 body.accessibility-mode td,
 body.accessibility-mode label,
 body.accessibility-mode small,
-body.accessibility-mode div {
-    font-size: 16px !important;
-    line-height: 1.7 !important;
-    letter-spacing: 0.2px !important;
+body.accessibility-mode div:not(.hero-track):not(.hero-slider):not(.container) {
+    font-size: 20px !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.3px !important;
 }
 
-body.accessibility-mode h1 { font-size: 26px !important; line-height: 1.2 !important; }
-body.accessibility-mode h2 { font-size: 22px !important; line-height: 1.3 !important; }
-body.accessibility-mode h3 { font-size: 19px !important; line-height: 1.4 !important; }
-body.accessibility-mode h4 { font-size: 17px !important; }
+body.accessibility-mode h1 { font-size: 48px !important; line-height: 1.1 !important; font-weight: 900 !important; }
+body.accessibility-mode h2 { font-size: 40px !important; line-height: 1.2 !important; font-weight: 800 !important; }
+body.accessibility-mode h3 { font-size: 32px !important; line-height: 1.3 !important; font-weight: 700 !important; }
+body.accessibility-mode h4 { font-size: 26px !important; font-weight: 700 !important; }
 
 /* --- Header --- */
 body.accessibility-mode header {
@@ -126,6 +126,7 @@ body.accessibility-mode .mobile-menu-item,
 body.accessibility-mode .footer-links a {
     color: #FFD700 !important;
     text-decoration: underline !important;
+    font-size: 20px !important;
 }
 
 body.accessibility-mode a:hover,
@@ -141,10 +142,14 @@ body.accessibility-mode header .desktop-nav .nav-link:link,
 body.accessibility-mode header .desktop-nav .nav-link:visited {
     color: #FFD700 !important;
     text-decoration: none !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    padding: 10px 15px !important;
 }
 body.accessibility-mode header .desktop-nav .nav-link i,
 body.accessibility-mode header .desktop-nav .nav-link * {
     color: #FFD700 !important;
+    font-size: 22px !important;
 }
 body.accessibility-mode header .desktop-nav .nav-link:hover {
     color: #FFD700 !important;
@@ -159,8 +164,8 @@ body.accessibility-mode .user-menu-button {
     padding: 6px 14px !important;
     min-height: unset !important;
     box-shadow: none !important;
-    font-size: 14px !important;
-    border-radius: 20px !important;
+    font-size: 20px !important;
+    border-radius: 30px !important;
 }
 
 /* --- Іконка кошика (маленька утилітарна) --- */
@@ -192,7 +197,7 @@ body.accessibility-mode #accessibility-btn {
     border: 2px solid #000 !important;
     font-weight: 800 !important;
     box-shadow: 0 0 22px rgba(255, 215, 0, 0.75) !important;
-    font-size: 13px !important;
+    font-size: 18px !important;
     min-height: unset !important;
     padding: 8px 14px !important;
     border-radius: 10px !important;
@@ -215,7 +220,7 @@ body.accessibility-mode .add-sauce-btn {
     background: #FFD700 !important;
     color: #000 !important;
     border: none !important;
-    font-size: 15px !important;
+    font-size: 20px !important;
     font-weight: 700 !important;
     padding: 13px 20px !important;
     min-height: 48px !important;
@@ -306,7 +311,7 @@ body.accessibility-mode .hero-tag {
     background: rgba(255, 215, 0, 0.1) !important;
     border-color: rgba(255, 215, 0, 0.4) !important;
     color: #FFD700 !important;
-    font-size: 11px !important;
+    font-size: 16px !important;
 }
 
 /* Progress bar і підкреслення слайдера — жовте */
@@ -354,7 +359,7 @@ body.accessibility-mode .tabs {
 }
 
 body.accessibility-mode .tab {
-    font-size: 15px !important;
+    font-size: 20px !important;
     padding: 10px 22px !important;
     border: 2px solid rgba(255, 215, 0, 0.4) !important;
     color: #FFD700 !important;
@@ -389,7 +394,7 @@ body.accessibility-mode .pizza-price,
 body.accessibility-mode .drink-price,
 body.accessibility-mode .appetizer-price {
     color: #FFD700 !important;
-    font-size: 18px !important;
+    font-size: 24px !important;
     font-weight: 700 !important;
     text-shadow: 0 0 6px rgba(255, 215, 0, 0.45) !important;
 }
@@ -403,7 +408,7 @@ body.accessibility-mode .shadcn-select-trigger {
     height: 38px !important;
     padding: 0 10px !important;
     box-shadow: none !important;
-    font-size: 13px !important;
+    font-size: 18px !important;
     border-radius: 6px !important;
 }
 
@@ -453,7 +458,7 @@ body.accessibility-mode select {
     color: #FFD700 !important;
     border: 2px solid #FFD700 !important;
     border-radius: 8px !important;
-    font-size: 18px !important;
+    font-size: 22px !important;
     padding: 12px 55px 12px 60px !important;
     min-height: 54px !important;
 }
@@ -489,7 +494,7 @@ body.accessibility-mode .input-group input:not(:placeholder-shown) ~ label {
     left: 40px !important;
     background: #000 !important;
     color: #FFD700 !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
     font-weight: 800 !important;
     padding: 0 10px !important;
     border: 1px solid #FFD700 !important;
@@ -542,7 +547,7 @@ body.accessibility-mode .cart-item {
 body.accessibility-mode .cart-item-price,
 body.accessibility-mode #cart-total {
     color: #FFD700 !important;
-    font-size: 17px !important;
+    font-size: 22px !important;
     font-weight: 700 !important;
     text-shadow: 0 0 6px rgba(255, 215, 0, 0.4) !important;
 }
@@ -578,7 +583,7 @@ body.accessibility-mode footer {
 
 body.accessibility-mode .footer-title {
     color: #FFD700 !important;
-    font-size: 17px !important;
+    font-size: 24px !important;
     text-shadow: 0 0 6px rgba(255, 215, 0, 0.3) !important;
 }
 
@@ -619,6 +624,8 @@ body.accessibility-mode .user-dropdown {
 body.accessibility-mode .user-dropdown a {
     color: #FFD700 !important;
     text-decoration: none !important;
+    font-size: 20px !important;
+    padding: 14px 20px !important;
 }
 
 body.accessibility-mode .user-dropdown a:hover {

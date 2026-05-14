@@ -13,7 +13,7 @@ function createMobileMenu() {
   const menuToggle = document.createElement("button")
   menuToggle.className = "mobile-menu-toggle"
   menuToggle.innerHTML = '<i class="fas fa-bars"></i>'
-  menuToggle.setAttribute("aria-label", "Otwoz menu")
+  menuToggle.setAttribute("aria-label", "Otwórz menu")
 
   header.insertBefore(menuToggle, header.firstChild)
 
@@ -22,13 +22,13 @@ function createMobileMenu() {
     <div class="mobile-menu">
       <div class="mobile-menu-header">
         <h3>Menu</h3>
-        <button class="close-mobile-menu" aria-label="zamknij menu">
+        <button class="close-mobile-menu" aria-label="Zamknij menu">
           <i class="fas fa-times"></i>
         </button>
       </div>
       <div class="mobile-menu-items">
         <a href="index.html" class="mobile-menu-item">
-          <i class="fas fa-home"></i> Glowna strona
+          <i class="fas fa-home"></i> Główna strona
         </a>
         <a href="#" class="mobile-menu-item" data-tab="pizza">
           <i class="fas fa-pizza-slice"></i> Pizze
@@ -40,7 +40,7 @@ function createMobileMenu() {
           <i class="fas fa-cheese"></i> Przystawki
         </a>
         <a href="login.html" class="mobile-menu-item">
-          <i class="fas fa-sign-in-alt"></i> Zaloguj sie
+          <i class="fas fa-sign-in-alt"></i> Zaloguj się
         </a>
         <a href="register.html" class="mobile-menu-item">
           <i class="fas fa-user-plus"></i> Rejestracja
