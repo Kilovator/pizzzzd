@@ -6,8 +6,8 @@
 
 (function () {
     const STORAGE_KEY = 'pizzeria-accessibility';
-    const ACTIVE_TEXT = '<i class="fas fa-eye-slash"></i><span class="acc-label"> Wyłącz tryb</span>';
-    const INACTIVE_TEXT = '<i class="fas fa-eye"></i><span class="acc-label"> Słabowidzący</span>';
+    const ACTIVE_TEXT = '<i class="fas fa-eye-slash" aria-hidden="true"></i><span class="acc-label"> Wyłącz tryb</span>';
+    const INACTIVE_TEXT = '<i class="fas fa-eye" aria-hidden="true"></i><span class="acc-label"> Słabowidzący</span>';
 
     function isActive() {
         return localStorage.getItem(STORAGE_KEY) === 'on';

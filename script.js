@@ -296,7 +296,7 @@ function displayItems(items, container, itemType) {
 
     // Add the add to cart button
     itemHTML += `<button class="add-to-cart" data-id="${item.id}" data-type="${item.type}">
-                   <i class="fas fa-shopping-cart"></i> Dodać do koszyka
+                   <i class="fas fa-shopping-cart" aria-hidden="true"></i> Dodać do koszyka
                  </button>`
     itemHTML += `</div>`
 
@@ -512,18 +512,18 @@ function updateCart() {
       }
 
       cartItemElement.innerHTML = `
-        <img src="${item.image}" alt="${itemName}" class="cart-item-img">
+        <img src="${item.image}" alt="" class="cart-item-img" aria-hidden="true">
         <div class="cart-item-details">
           <div class="cart-item-name">${itemName}</div>
           <div class="cart-item-price">${item.price.toFixed(2)} zł</div>
           <div class="cart-item-controls">
-            <button class="quantity-btn decrease" data-index="${index}">-</button>
+            <button class="quantity-btn decrease" data-index="${index}" aria-label="Zmniejsz ilość">-</button>
             <span class="cart-item-quantity">${item.quantity}</span>
-            <button class="quantity-btn increase" data-index="${index}">+</button>
+            <button class="quantity-btn increase" data-index="${index}" aria-label="Zwiększ ilość">+</button>
           </div>
         </div>
-        <button class="remove-item" data-index="${index}">
-          <i class="fas fa-trash"></i>
+        <button class="remove-item" data-index="${index}" aria-label="Usuń z koszyka">
+          <i class="fas fa-trash" aria-hidden="true"></i>
         </button>
       `
 
@@ -653,7 +653,7 @@ function init() {
       const sauceItem = document.createElement("div")
       sauceItem.className = "sauce-upsell-item"
       sauceItem.innerHTML = `
-        <img src="${sauce.image}" alt="${sauce.name}" class="sauce-upsell-img">
+        <img src="${sauce.image}" alt="" class="sauce-upsell-img" aria-hidden="true">
         <span>${sauce.name}</span>
         <button class="add-sauce-btn" data-id="${sauce.id}">Dodaj</button>
       `
@@ -886,7 +886,7 @@ function ddzMakeDraggable(el, item) {
       ghost.style.left = (x - 105) + 'px'
       ghost.style.top = (y - 40) + 'px'
       ghost.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
+        <img src="${item.image}" alt="" aria-hidden="true">
         <div class="drag-ghost-info">
           <div class="drag-ghost-name">${item.name}</div>
           <div class="drag-ghost-price">${item.price.toFixed(2)} zł</div>
